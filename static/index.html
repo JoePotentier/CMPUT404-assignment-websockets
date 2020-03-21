@@ -124,12 +124,12 @@ function getPosition(e) {
 function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
-    //XXX: Send a XHTML Request that updates the entity you just modified!
 }
 var counter = 0;
 function addEntityWithoutName(data) {
     var name = "X"+(counter++)%100;
     addEntity(name,data);
+    return name
 }
 
 // canvas + mouse/touch is complicated 
@@ -228,32 +228,41 @@ mouse = (function() {
     return self;
 })();
 
-// Add the application specific mouse listeners!
-//XXX: TODO Make these prettier!
-mouse.mousedowners.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
-});
 
-mouse.mouseuppers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'red'});
-});
-
-mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'green',
-                          'radius':10});
-});
 
 
 function update() {
     drawFrame();
 }
 
+function socketSendWithName(socket, data, name){
+    name = addEntityWithoutName(data);
+    let toSend = {}
+    toSend[name] = data
+    socket.send(JSON.stringify(toSend))
+    console.log(toSend)
+}
 
 function wsSetup() {
     var url = "ws://"+host+"/subscribe";   
     socket = new WebSocket(url);
     socket.onopen = function() {
-        //XXX: TODO What are you going to do here?
+        // Add the application specific mouse listeners!
+        //XXX: TODO Make these prettier!
+        mouse.mousedowners.push(function(x,y,clicked,e) {
+            data = {'x':x,'y':y,'colour':'blue'}
+            socketSendWithName(socket, data, name)
+        });
+
+        mouse.mouseuppers.push(function(x,y,clicked,e) {
+            data = {'x':x,'y':y,'colour':'red'}
+            socketSendWithName(socket, data, name)
+        });
+
+        mouse.mousedraggers.push(function(x,y,clicked,e) {
+            data = {'x':x,'y':y,'colour':'green','radius':10}
+            socketSendWithName(socket, data, name)
+        });
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
@@ -261,11 +270,15 @@ function wsSetup() {
     socket.onmessage = function(msg) {  
         try {
             debug("WebSocket Recv:" + msg.data);
-            //XXX: TODO What are you going to do here?            
+            data = JSON.parse(msg.data)
+            for(var name in data) {
+                addEntity(name, data[name])
+            }
+            
         } catch (e) {
             alert("socket on message: " + e);
         }
-    }; 
+    };
 }
 
 wsSetup();
