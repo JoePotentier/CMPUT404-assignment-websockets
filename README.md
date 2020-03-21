@@ -1,5 +1,4 @@
-CMPUT404-assignment-websockets
-==============================
+# CMPUT404-assignment-websockets
 
 CMPUT404-assignment-websockets
 
@@ -7,8 +6,8 @@ See requirements.org (plain-text) for a description of the project.
 
 Make a shared state Websockets drawing program
 
-Prereqs
-=======
+# Prereqs
+
 Create a virtual environment and install the required dependencies.
 
 ```bash
@@ -17,8 +16,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Contributors / Licensing
-========================
+# Contributors / Licensing
 
 Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle.
 
@@ -26,20 +24,20 @@ freetests.py is LICENSE'D under a BSD-like license:
 
 From ws4py
 
-Copyright (c) 2011-2014, Sylvain Hellegouarch, Abram Hindle
+Copyright (c) 2011-2014, Sylvain Hellegouarch, Abram Hindle, Joseph Potentier-Neal
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
- * Redistributions of source code must retain the above copyright notice,
-   this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
- * Neither the name of ws4py nor the names of its contributors may be used
-   to endorse or promote products derived from this software without
-   specific prior written permission.
+- Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+- Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+- Neither the name of ws4py nor the names of its contributors may be used
+  to endorse or promote products derived from this software without
+  specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -53,9 +51,12 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
-Contributors
-============
+# Contributors
 
-* Mark Galloway
-* Abram Hindle
-* Cole Mackenzie
+- Mark Galloway
+- Abram Hindle
+- Cole Mackenzie
+- Joseph Potentier-Neal
+
+Colour code curtesy of Dimitry K - https://www.paulirish.com/2009/random-hex-color-code-snippets/
+Some web socket features are based on Abram Hindle's chat.py and chat.html found here https://github.com/uofa-cmput404/cmput404-slides/tree/master/examples/WebSocketsExamples

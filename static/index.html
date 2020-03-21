@@ -6,7 +6,7 @@
     <meta content='width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="license" content="
-        Copyright 2013 Google, Abram Hindle
+        Copyright 2013 Google, Abram Hindle, and Joseph Potentier-Neal
         
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -44,14 +44,13 @@ debug("Test");
 
 world = {};
 
-//XXX: TODO Make this prettier!
+
 function drawCircle(context,entity) {
     with(context) {
         beginPath();                
         lineWidth = 3;
         var x = entity["x"];
         var y = entity["y"];
-        //moveTo(x,y);
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
         arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
@@ -248,19 +247,26 @@ function wsSetup() {
     socket = new WebSocket(url);
     socket.onopen = function() {
         // Add the application specific mouse listeners!
-        //XXX: TODO Make these prettier!
         mouse.mousedowners.push(function(x,y,clicked,e) {
-            data = {'x':x,'y':y,'colour':'blue'}
+            data = {'x':x,'y':y,'colour':'white'}
             socketSendWithName(socket, data, name)
         });
 
         mouse.mouseuppers.push(function(x,y,clicked,e) {
-            data = {'x':x,'y':y,'colour':'red'}
+            data = {'x':x,'y':y,'colour':'white'}
             socketSendWithName(socket, data, name)
         });
 
         mouse.mousedraggers.push(function(x,y,clicked,e) {
-            data = {'x':x,'y':y,'colour':'green','radius':10}
+            // Colour code curtesy of Dimitry K - https://www.paulirish.com/2009/random-hex-color-code-snippets/
+            colour ="#" +("000000" +
+                Math.random()
+                    .toString(16)
+                    .slice(2, 8)
+                    .toUpperCase()
+                ).slice(-6);
+            console.log()
+            data = {'x':x,'y':y,'colour':colour,'radius':10}
             socketSendWithName(socket, data, name)
         });
     };
